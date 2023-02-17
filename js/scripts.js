@@ -102,4 +102,51 @@ function lightMode() {
         }
     })
 }
-lightMode()
+if (document.querySelector('.switch__checkbox')) {
+    lightMode()
+}
+
+if (document.querySelector('.login__form')) {
+    if (
+        localStorage.theme === 'light' ||
+        (!('theme' in localStorage) &&
+            window.matchMedia('(prefers-color-scheme: light)').matches)
+    ) {
+        document.body.classList.add('light')
+    } else {
+        document.body.classList.remove('light')
+    }
+}
+// Модальное окно
+function bindModal(triggerClass, modalClass, closeClass) {
+    const trigger = document.querySelector(triggerClass)
+    const modal = document.querySelector(modalClass)
+    const close = document.querySelector(closeClass)
+
+    const body = document.body
+
+    trigger.addEventListener('click', (e) => {
+        e.preventDefault()
+        modal.style.display = 'flex'
+        body.classList.add('locked')
+    })
+    close.addEventListener('click', () => {
+        modal.style.display = 'none'
+        body.classList.remove('locked')
+    })
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none'
+            body.classList.remove('locked')
+        }
+    })
+}
+
+// ПЕРВЫЙ аргумент - класс кнопки, при клике на которую будет открываться модальное окно.
+// ВТОРОЙ аргумент - класс самого модального окна.
+// ТРЕТИЙ аргумент - класс кнопки, при клике на которую будет закрываться модальное окно.
+if (document.querySelector('.login__form')) {
+    bindModal('.modal__btn-1', '.modal__wrapper-1', '.modal__close-1')
+    bindModal('.modal__btn-2', '.modal__wrapper-2', '.modal__close-2')
+    bindModal('.modal__btn-3', '.modal__wrapper-3', '.modal__close-3')
+}
