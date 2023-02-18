@@ -256,6 +256,50 @@ body {
         .radio__item {
             color: #292b2f;
         }
+
+        .more__message {
+            background: #f2f2f4;
+            color: #2f3136;
+            path {
+                fill: #2f3136;
+            }
+
+            &:hover {
+                background: #2f3136;
+                color: #f2f2f4;
+                path {
+                    fill: #f2f2f4;
+                }
+            }
+        }
+
+        .messages__info-title {
+            color: #000000;
+        }
+        .messages__info-text {
+            color: #5c5f62;
+        }
+        .toggle__slider {
+            background: #f0f0f0;
+        }
+        .toggle__checkbox:checked {
+            + .toggle__slider {
+                background: darken($color: #f0f0f0, $amount: 10);
+
+                .toggle__text-1 {
+                    color: #000000 !important;
+                    opacity: 0.7;
+                }
+                .toggle__text {
+                    color: #000000;
+                    opacity: 0.7;
+                }
+            }
+        }
+        .toggle__text {
+            color: #000000;
+            opacity: 0.7;
+        }
     }
 }
 
@@ -1797,6 +1841,28 @@ header {
         line-height: 21px;
         color: #ffffff;
     }
+
+    // .message__button
+    &__button {
+        background: #43454a;
+        border: 0.6px solid rgba(255, 255, 255, 0.3);
+        border-radius: 6px;
+        padding: 10px 0;
+        margin-top: 10px;
+        &:hover {
+            background: darken($color: #43454a, $amount: 10);
+            border: 0.6px solid darken($color: #43454a, $amount: 10);
+            border-radius: 6px;
+        }
+        span {
+            font-style: normal;
+            font-weight: 700;
+            font-size: 15px;
+            line-height: 20px;
+            text-decoration-line: underline;
+            color: #ffffff;
+        }
+    }
 }
 
 // ************** Page Messages **************
@@ -1889,6 +1955,132 @@ header {
         }
     }
 }
+
+// Message Stats
+.messages {
+    // .messages__stats
+    &__stats {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 28px;
+        @media (max-width: $breakpoint768) {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+    }
+    // .messages__info
+    &__info {
+        flex: 0 1 100%;
+    }
+    // .messages__info-title
+    &__info-title {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 23px;
+        color: #ffffff;
+        @media (max-width: $breakpoint768) {
+            text-align: center;
+        }
+    }
+    // .messages__info-text
+    &__info-text {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 21px;
+        color: #ffffff;
+        opacity: 0.7;
+        margin-top: 5px;
+        @media (max-width: $breakpoint768) {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    }
+}
+
+// Message Toggle
+.toggle {
+    width: 200px;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    height: 46px;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+    // .toggle__checkbox
+    &__checkbox {
+        display: none;
+        &:checked {
+            + .toggle__slider {
+                background: #43454a;
+                .toggle__text-1 {
+                    color: #ffffff;
+                }
+                .toggle__text-2 {
+                    color: black;
+                }
+                &:after {
+                    left: 93px;
+                    display: flex;
+                    background: whitesmoke;
+                }
+            }
+        }
+    }
+    // .toggle__slider {
+    &__slider {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background: #43454a;
+        border-radius: 30px;
+        transition: 0.5s background;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 10px;
+        &::after {
+            position: absolute;
+            content: '';
+            width: 100px;
+            height: 36px;
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 90px;
+            transition: 0.5s left, background;
+            left: 4px;
+            top: 4px;
+        }
+    }
+
+    // .toggle__text
+    &__text {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 16px;
+        letter-spacing: -0.02em;
+        color: #ffffff;
+        opacity: 0.7;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        flex: 0 1 100px;
+        z-index: 2;
+        transition: 0.3s color;
+        &.toggle__text-1 {
+            color: #000000;
+            opacity: 0.7;
+        }
+    }
+}
+
 // Messages Head
 .messages {
     // .messages__head
@@ -1900,7 +2092,7 @@ header {
         justify-content: space-between;
         align-items: center;
         @media (max-width: $breakpoint768) {
-            margin-top: 24px;
+            margin-top: 0px;
         }
     }
     // .messages__head-name
@@ -1939,24 +2131,23 @@ header {
     // .messages__item
     &__item {
         flex: 0 1 48%;
-        max-height: 700px;
         height: 100%;
         padding: 10px;
-        overflow: auto;
-        &::-webkit-scrollbar {
-            width: 8px;
-        }
 
-        &::-webkit-scrollbar-track {
-            -webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.3);
-        }
-
-        &::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, #6f47eb 0%, #f68bff 100%);
-            border-radius: 4px;
-        }
         @media (max-width: $breakpoint768) {
             flex: 0 1 100%;
+        }
+    }
+}
+.more {
+    // .more__message
+    &__message {
+        margin-top: 20px;
+        background: rgba(242, 242, 244, 0.2);
+        border-radius: 7px;
+        box-shadow: none;
+        &:hover {
+            background: #1a1b1d;
         }
     }
 }
